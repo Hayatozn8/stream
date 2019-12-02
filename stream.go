@@ -81,3 +81,17 @@ func OfArray(array []interface{}) Stream {
 	s.operators = s.head
 	return s
 }
+
+func OfLineFile(path string) Stream{
+	reader, err := NewLineRecordReader(path)
+	if err !=nil {
+		panic(err)
+	}
+
+	s := &StreamHelper{
+		spliterator: NewFileSpliterator(path, reader),
+		head:        NewHeadPipeline(),
+	}
+	s.operators = s.head
+	return s
+}
